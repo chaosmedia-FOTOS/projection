@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ledconfig>
+	<serverinfo>
+		<ip>localhost</ip>
+		<port>8888</port>
+	</serverinfo>
+	<ledinfo>
+		<cluster name="foo">
+			<strip name="bar">
+				<!-- Pin number -->
+				<r>23</r>
+				<g>24</g>
+				<b>15</b>
+			</strip>
+		</cluster>
+	</ledinfo>
+</ledconfig>
