@@ -33,7 +33,7 @@
 			return _socket.connected;
 		}
 
-		public function getStripByName(name:String):PiLED {
+		private function getStripByName(name:String):PiLED {
 			for each (var cluster in _ledConfig.ledinfo.cluster) {
 				for each (var strip in cluster.strip) {
 					if(strip.@name == name)
@@ -43,7 +43,7 @@
 			return null;
 		}
 
-		public function getClusterByName(name:String):Array{
+		private function getClusterByName(name:String):Array{
 			for each (var cluster in _ledConfig.ledinfo.cluster){
 				if(cluster.@name == name){
 					var clusterTab = new Array;
@@ -73,18 +73,19 @@
 		** Methods
 		*******/
 
-		public function setColorRGB(led:PiLED, ms:uint, r:uint, g:uint, b:uint):Boolean {
+		public function setColorRGB(name:String, ms:uint, r:uint, g:uint, b:uint):Boolean {
 			//Send data to pi
-			return led != null &&
+			var led:PiLED = getStripByName(name);
+			return ledInfo != null &&
 				   _socket.sendString("led " + ms + " " + led.rPin + " " + r) &&
 				   _socket.sendString("led " + ms + " " + led.gPin + " " + g) &&
 				   _socket.sendString("led " + ms + " " + led.bPin + " " + b);
 		}
 
 
-		public function setColorHex(led:PiLED, ms:uint, color:uint):Boolean {
+		public function setColorHex(name:String, ms:uint, color:uint):Boolean {
 			var rgb:Array = hex2rgb(color);
-			return setColorRGB(led, ms, rgb[0], rgb[1], rgb[2]);
+			return setColorRGB(name, ms, rgb[0], rgb[1], rgb[2]);
 		}
 		
 		public function setClusterColorRGB(name:String, ms:uint, r:uint, g:uint, b:uint):Boolean {
